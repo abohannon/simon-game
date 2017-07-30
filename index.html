@@ -30,42 +30,66 @@ User Stories:
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Adam's Simon Game</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <div class="container">
-      <div class="container-in">
-        <div class="row">
-          <div class="top-left green push inline">
 
-          </div>
-          <div class="top-right red push inline">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Adam's Simon Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Anton|Roboto:400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
 
-          </div>
+<body>
+  <div class="container">
+    <div class="container-in">
+      <div class="row">
+        <div class="top-left green push inline">
+
         </div>
-        <div class="row">
-          <div class="bottom-left yellow push inline">
+        <div class="top-right red push inline">
 
-          </div>
-          <div class="bottom-right blue push inline">
-
-          </div>
         </div>
       </div>
-      <div class="game-center">
-        <div class="row">
+      <div class="row">
+        <div class="bottom-left yellow push inline">
 
         </div>
-        <div class="row">
+        <div class="bottom-right blue push inline">
 
         </div>
       </div>
     </div>
+    <div class="game-center">
+      <h1 class="branding">simon</h1>
+      <div class="row">
+        <div class="screen inline">
+          <h2 class="count led-off">--</h2>
+          <p class="label">COUNT</p>
+        </div>
+        <div class="btn-box inline">
+          <div class="round-btn"></div>
+          <p class="label">START</p>
+        </div>
+        <div class="btn-box inline">
+          <div class="round-btn"></div>
+          <p class="label">STRICT</p>
+        </div>
+      </div>
+      <div class="row power-btn">
+        <p class="label inline">OFF</p>
+        <div class="switch inline">
+          <div class="switch-btn"></div>
+        </div>
+        <p class="label inline">ON</p>
+
+      </div>
+
+    </div>
+
+  </div>
+  </div>
   <script src="script.js"></script>
-  </body>
+</body>
+
 </html>
