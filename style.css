@@ -1,3 +1,78 @@
 body {
-  background-color: black;
+  background-color: white;
+}
+
+.row {
+  margin-bottom: -4px;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.container {
+  width: 500px;
+  height: 500px;
+  position: relative;
+  margin: auto;
+  text-align: center;
+  border-radius: 100%;
+  background-color: rgb(31, 31, 31);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.container-in {
+  position: relative;
+  top: 8px;
+}
+
+.push {
+  width: 220px;
+  height: 220px;
+  position: relative;
+  border: 10px solid rgb(31, 31, 31);
+}
+
+.top-left {
+  border-radius: 100% 0 0 0;
+}
+
+.top-right {
+  border-radius: 0 100% 0 0;
+}
+
+.bottom-right {
+  border-radius: 0 0 100% 0;
+}
+
+.bottom-left {
+  border-radius: 0 0 0 100%;
+}
+
+.green {
+  background-color: green;
+}
+
+.red {
+  background-color: red;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.game-center {
+  background: rgb(237, 237, 237);
+  width: 250px;
+  height: 250px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -138px 0 0 -136px;
+  border-radius: 100%;
+  border: 10px solid rgb(31, 31, 31);
 }
