@@ -5,12 +5,16 @@
   const soundBL = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.mp3');
   const soundBR = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3');
 
-  Array.from(gameButtons).forEach(function(buttons){
+  let gameOn = false;
+
+  Array.from(gameButtons).forEach(function(buttons) {
     buttons.addEventListener('click', buttonFunc);
   });
 
-  function buttonFunc(e){
+  function buttonFunc(e) {
+
     console.log(e.target);
+
     if (e.target.id === 'tl') {
       playSound(soundTL);
     }
@@ -26,6 +30,21 @@
 
   }
 
-  function playSound(e){
+  function playSound(e) {
     e.play();
   }
+
+// IIFE for off/on power switch
+  (function togglePower() {
+    const powerBtn = document.querySelector('#power');
+    const counterLED = document.querySelector('#counter');
+    powerBtn.addEventListener('click', function() {
+      powerBtn.classList.toggle('switch-btn-on');
+      counterLED.classList.toggle('led-on');
+      if (powerBtn.classList.contains('switch-btn-on')) {
+        gameOn = true;
+      } else {
+        gameOn = false;
+      }
+    });
+  }());

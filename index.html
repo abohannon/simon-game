@@ -41,12 +41,12 @@ User Stories:
     <!-- outside buttons -->
     <div class="container-in">
       <div class="row">
-        <div class="top-left green push inline" id="tl"></div>
-        <div class="top-right red push inline" id="tr"></div>
+        <div class="top-left green push inline" id="tl" data-idx="0"></div>
+        <div class="top-right red push inline" id="tr" data-idx="1"></div>
       </div>
       <div class="row">
-        <div class="bottom-left yellow push inline" id="bl"></div>
-        <div class="bottom-right blue push inline" id="br"></div>
+        <div class="bottom-left yellow push inline" id="bl" data-idx="2"></div>
+        <div class="bottom-right blue push inline" id="br" data-idx="3"></div>
       </div>
     </div>
     <!-- inner control area -->
@@ -54,7 +54,7 @@ User Stories:
       <h1 class="branding">simon</h1>
       <div class="row">
         <div class="screen inline">
-          <h2 class="count led-off">--</h2>
+          <h2 class="count led-off" id="counter">--</h2>
           <p class="label">COUNT</p>
         </div>
         <div class="btn-box inline">
@@ -70,7 +70,7 @@ User Stories:
       <div class="row power-btn">
         <p class="label inline">OFF</p>
         <div class="switch inline">
-          <div class="switch-btn"></div>
+          <div class="switch-btn" id="power"></div>
         </div>
         <p class="label inline">ON</p>
       </div>
