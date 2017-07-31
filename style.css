@@ -3,6 +3,87 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+.row {
+  margin-bottom: -4px;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.container {
+  width: 500px;
+  height: 500px;
+  top: 4vh;
+  position: relative;
+  margin: auto;
+  text-align: center;
+  border-radius: 100%;
+  background-color: rgb(31, 31, 31);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.container-in {
+  position: relative;
+  top: 8px;
+}
+
+
+/* main game buttons */
+
+.push {
+  width: 220px;
+  height: 220px;
+  position: relative;
+  border: 10px solid rgb(31, 31, 31);
+}
+
+.top-left {
+  border-radius: 100% 0 0 0;
+}
+
+.top-right {
+  border-radius: 0 100% 0 0;
+}
+
+.bottom-right {
+  border-radius: 0 0 100% 0;
+}
+
+.bottom-left {
+  border-radius: 0 0 0 100%;
+}
+
+.green {
+  background-color: rgb(0, 173, 33);
+}
+
+.red {
+  background-color: rgb(179, 29, 29);
+}
+
+.yellow {
+  background-color: rgb(209, 207, 0);
+}
+
+.blue {
+  background-color: rgb(0, 49, 157);
+}
+
+/* game control board */
+
+.game-center {
+  background: rgb(237, 237, 237);
+  width: 250px;
+  height: 250px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -138px 0 0 -136px;
+  border-radius: 100%;
+  border: 10px solid rgb(31, 31, 31);
+}
+
 .branding {
   font-family: 'Anton', sans-serif;
   font-size: 3rem;
@@ -105,79 +186,4 @@ body {
 
 .switch-btn-on {
   left: 20px;
-}
-
-.row {
-  margin-bottom: -4px;
-}
-
-.inline {
-  display: inline-block;
-}
-
-.container {
-  width: 500px;
-  height: 500px;
-  position: relative;
-  margin: auto;
-  text-align: center;
-  border-radius: 100%;
-  background-color: rgb(31, 31, 31);
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-}
-
-.container-in {
-  position: relative;
-  top: 8px;
-}
-
-.push {
-  width: 220px;
-  height: 220px;
-  position: relative;
-  border: 10px solid rgb(31, 31, 31);
-}
-
-.top-left {
-  border-radius: 100% 0 0 0;
-}
-
-.top-right {
-  border-radius: 0 100% 0 0;
-}
-
-.bottom-right {
-  border-radius: 0 0 100% 0;
-}
-
-.bottom-left {
-  border-radius: 0 0 0 100%;
-}
-
-.green {
-  background-color: rgb(0, 173, 33);
-}
-
-.red {
-  background-color: rgb(179, 29, 29);
-}
-
-.yellow {
-  background-color: rgb(209, 207, 0);
-}
-
-.blue {
-  background-color: rgb(0, 49, 157);
-}
-
-.game-center {
-  background: rgb(237, 237, 237);
-  width: 250px;
-  height: 250px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: -138px 0 0 -136px;
-  border-radius: 100%;
-  border: 10px solid rgb(31, 31, 31);
 }
