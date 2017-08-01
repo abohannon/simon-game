@@ -113,6 +113,7 @@ body {
 }
 
 .count {
+  font-family: 'Roboto Mono', monospace;
   width: 50px;
   font-size: 2rem;
   padding: 0;
@@ -147,6 +148,10 @@ body {
   margin: auto;
   border: 2px solid #222;
   top: -18px;
+}
+
+.strict-led-on {
+  background-color: #DC0D29;
 }
 
 .btn-box {
