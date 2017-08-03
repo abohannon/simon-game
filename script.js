@@ -1,12 +1,19 @@
   const gameButtons = document.querySelectorAll('.push');
+
+  const greenBtn = document.querySelector('#green');
+  const redBtn = document.querySelector('#red');
+  const yellowBtn = document.querySelector('#yellow');
+  const blueBtn = document.querySelector('#blue');
+
   const startBtn = document.querySelector('#start');
   const strictBtn = document.querySelector('#strict');
+  const strictLED = document.querySelector('.strict-led');
   const display = document.querySelector('#counter');
 
-  const soundTL = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3');
-  const soundTR = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3');
-  const soundBL = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.mp3');
-  const soundBR = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3');
+  const soundGreen = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3');
+  const soundRed = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3');
+  const soundYellow = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.mp3');
+  const soundBlue = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3');
 
   let gameOn = false;
   let gameStart = false;
@@ -17,44 +24,32 @@
     buttons.addEventListener('click', outerButtons);
   });
 
+  // General button behavior (sounds, active state, delay)
+  function buttonFunc(eventVar, soundVar, activeClass){
+    playSound(soundVar);
+    eventVar.target.classList.add(activeClass);
+    setTimeout(function(){
+      eventVar.target.classList.remove(activeClass);
+    }, 250);
+  }
+
   function outerButtons(e) {
 
     if (gameOn) {
 
       let buttonID = e.target.dataset.idx;
 
-      if (e.target.id === 'tl') {
-        playSound(soundTL);
-        e.target.classList.add('green-active');
-        setTimeout(function() {
-          e.target.classList.remove('green-active');
-          console.log('target:', buttonID);
-        }, 250);
+      if (e.target.id === 'green') {
+        buttonFunc(e, soundGreen, 'green-active');
       }
-      if (e.target.id === 'tr') {
-        playSound(soundTR);
-
-        e.target.classList.add('red-active');
-        setTimeout(function() {
-          e.target.classList.remove('red-active');
-          console.log('target:', buttonID);
-        }, 250);
+      if (e.target.id === 'red') {
+        buttonFunc(e, soundRed, 'red-active');
       }
-      if (e.target.id === 'bl') {
-        playSound(soundBL);
-        e.target.classList.add('yellow-active');
-        setTimeout(function() {
-          e.target.classList.remove('yellow-active');
-          console.log('target:', buttonID);
-        }, 250);
+      if (e.target.id === 'yellow') {
+        buttonFunc(e, soundYellow, 'yellow-active');
       }
-      if (e.target.id === 'br') {
-        playSound(soundBR);
-        e.target.classList.add('blue-active');
-        setTimeout(function() {
-          e.target.classList.remove('blue-active');
-          console.log('target:', buttonID);
-        }, 250);
+      if (e.target.id === 'blue') {
+        buttonFunc(e, soundBlue, 'blue-active');
       }
       updateCount();
       console.log(counter);
@@ -70,7 +65,6 @@
     display.innerHTML = counter;
   }
 
-
   startBtn.addEventListener('click', () => {
     if (gameOn === true && gameStart === false) {
       gameStart = true;
@@ -79,13 +73,14 @@
   });
 
   strictBtn.addEventListener('click', () => {
-    const strictLED = document.querySelector('.strict-led');
     if (gameOn === true && strict === false) {
       strict = true;
       strictLED.classList.add('strict-led-on');
+      console.log('Strict mode:', strict);
     } else {
       strict = false;
       strictLED.classList.remove('strict-led-on');
+      console.log('Strict mode:', strict);
     }
   });
 
@@ -109,5 +104,7 @@
     gameStart = false;
     counter = 0;
     display.innerHTML = '--';
+    strictLED.classList.remove('strict-led-on');
+    strict = false;
     console.clear();
   }
