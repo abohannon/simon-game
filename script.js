@@ -1,21 +1,46 @@
   const gameButtons = document.querySelectorAll('.push');
 
-  const greenBtn = document.querySelector('#green');
-  const redBtn = document.querySelector('#red');
-  const yellowBtn = document.querySelector('#yellow');
-  const blueBtn = document.querySelector('#blue');
-
-  const buttonArray = [greenBtn, redBtn, yellowBtn, blueBtn];
+  // const greenBtn = document.querySelector('#green');
+  // const redBtn = document.querySelector('#red');
+  // const yellowBtn = document.querySelector('#yellow');
+  // const blueBtn = document.querySelector('#blue');
 
   const startBtn = document.querySelector('#start');
   const strictBtn = document.querySelector('#strict');
   const strictLED = document.querySelector('.strict-led');
   const display = document.querySelector('#counter');
 
-  const soundGreen = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3');
-  const soundRed = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3');
-  const soundYellow = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.mp3');
-  const soundBlue = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3');
+  // const soundGreen = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3');
+  // const soundRed = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3');
+  // const soundYellow = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.mp3');
+  // const soundBlue = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3');
+
+  const buttonsObj = [
+    {
+      button: document.querySelector('#green'),
+      sound: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3'),
+      idx: document.querySelector('#green').dataset.idx,
+      active: 'green-active'
+    },
+    {
+      button: document.querySelector('#red'),
+      sound: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3'),
+      idx: document.querySelector('#red').dataset.idx,
+      active: 'red-active'
+    },
+    {
+      button: document.querySelector('#yellow'),
+      sound: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.mp3'),
+      idx: document.querySelector('#yellow').dataset.idx,
+      active: 'yellow-active'
+    },
+    {
+      button: document.querySelector('#blue'),
+      sound: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3'),
+      idx: document.querySelector('#blue').dataset.idx,
+      active: 'blue-active'
+    }
+  ];
 
   let gameOn = false;
   let gameStart = false;
@@ -44,16 +69,16 @@
       let buttonID = e.target.dataset.idx;
 
       if (e.target.id === 'green') {
-        buttonFunc(e.target, soundGreen, 'green-active');
+        buttonFunc(e.target, buttonsObj[0].sound, buttonsObj[0].active);
       }
       if (e.target.id === 'red') {
-        buttonFunc(e.target, soundRed, 'red-active');
+        buttonFunc(e.target, buttonsObj[1].sound, buttonsObj[1].active);
       }
       if (e.target.id === 'yellow') {
-        buttonFunc(e.target, soundYellow, 'yellow-active');
+        buttonFunc(e.target, buttonsObj[2].sound, buttonsObj[2].active);
       }
       if (e.target.id === 'blue') {
-        buttonFunc(e.target, soundBlue, 'blue-active');
+        buttonFunc(e.target, buttonsObj[3].sound, buttonsObj[3].active);
       }
       updateCount();
       playerMoves.push(buttonID);
@@ -72,11 +97,13 @@
 
 // TODO: Complete computer move function **experimenting**
   function computerMove(){
-    buttonFunc(greenBtn, soundGreen, 'green-active');
-    computerMoves.push(greenBtn.dataset.idx);
+
+    let rand = Math.floor(Math.random()*4);
+
     setTimeout(function(){
-      buttonFunc(redBtn, soundRed, 'red-active');
-      computerMoves.push(redBtn.dataset.idx);
+      buttonFunc(buttonsObj[rand].button, buttonsObj[rand].sound, buttonsObj[rand].active);
+      computerMoves.push(buttonsObj[rand].idx);
+      console.log(computerMoves);
     }, 1200);
   }
 
@@ -84,6 +111,7 @@
     if (gameOn === true && gameStart === false) {
       gameStart = true;
       console.log('Start game:', gameStart);
+      computerMove();
     }
   });
 
