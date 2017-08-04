@@ -1,3 +1,7 @@
+//TODO: create function to compare computerMoves and playerMoves
+//TODO: create function to increment computerMoves every time
+
+
   const gameButtons = document.querySelectorAll('.push');
 
   // const greenBtn = document.querySelector('#green');
@@ -48,6 +52,7 @@
   let counter = 0;
   let computerMoves = [];
   let playerMoves = [];
+  let delay = 1000;
 
   Array.from(gameButtons).forEach(buttons => {
     buttons.addEventListener('click', outerButtons);
@@ -80,9 +85,8 @@
       if (e.target.id === 'blue') {
         buttonFunc(e.target, buttonsObj[3].sound, buttonsObj[3].active);
       }
-      updateCount();
       playerMoves.push(buttonID);
-      console.log(counter);
+      console.log('player moves:', playerMoves);
     }
   }
 
@@ -95,23 +99,43 @@
     display.innerHTML = counter;
   }
 
-// TODO: Complete computer move function **experimenting**
-  function computerMove(){
+  function computerRandom(){
 
+    // generate a random number to be used to select a random button index
     let rand = Math.floor(Math.random()*4);
 
+    // select a random button every time computerMove() loads; delay the move so it doesn't happen instantly
     setTimeout(function(){
-      buttonFunc(buttonsObj[rand].button, buttonsObj[rand].sound, buttonsObj[rand].active);
-      computerMoves.push(buttonsObj[rand].idx);
-      console.log(computerMoves);
-    }, 1200);
+        buttonFunc(buttonsObj[rand].button, buttonsObj[rand].sound, buttonsObj[rand].active);
+        computerMoves.push(buttonsObj[rand].idx);
+        console.log('computer moves:', computerMoves);
+        updateCount();
+        console.log('counter:', counter);
+    }, delay);
+  }
+
+  function computerMove(){
+
+    let offset = 0;
+
+    computerMoves.forEach(function(e){
+      setTimeout(function(){
+          buttonFunc(buttonsObj[e].button, buttonsObj[e].sound, buttonsObj[e].active);
+      },delay + offset);
+      offset += delay;
+    });
+
+    setTimeout(function(){
+      computerRandom();
+    }, offset);
+
   }
 
   startBtn.addEventListener('click', () => {
     if (gameOn === true && gameStart === false) {
       gameStart = true;
       console.log('Start game:', gameStart);
-      computerMove();
+      computerRandom();
     }
   });
 
