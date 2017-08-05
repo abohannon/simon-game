@@ -59,21 +59,28 @@ function simonGame(e) {
 
     let buttonID = e.target.dataset.idx;
 
-    if (e.target.id === 'green') {
-      buttonFunc(e.target, buttonsObj[0].sound, buttonsObj[0].active);
-    }
-    if (e.target.id === 'red') {
-      buttonFunc(e.target, buttonsObj[1].sound, buttonsObj[1].active);
-    }
-    if (e.target.id === 'yellow') {
-      buttonFunc(e.target, buttonsObj[2].sound, buttonsObj[2].active);
-    }
-    if (e.target.id === 'blue') {
-      buttonFunc(e.target, buttonsObj[3].sound, buttonsObj[3].active);
-    }
-
     if (turn) {
+      if (e.target.id === 'green') {
+        buttonFunc(e.target, buttonsObj[0].sound, buttonsObj[0].active);
+      }
+      if (e.target.id === 'red') {
+        buttonFunc(e.target, buttonsObj[1].sound, buttonsObj[1].active);
+      }
+      if (e.target.id === 'yellow') {
+        buttonFunc(e.target, buttonsObj[2].sound, buttonsObj[2].active);
+      }
+      if (e.target.id === 'blue') {
+        buttonFunc(e.target, buttonsObj[3].sound, buttonsObj[3].active);
+      }
+
       playerMove(buttonID);
+
+      if (playerMoves.length === computerMoves.length && gameStart !== false) {
+
+        setTimeout(function() {
+          computerMove();
+        }, delay);
+      }
     }
 
     // compare player and computer moves
@@ -105,47 +112,58 @@ function computerRandom() {
     updateCount();
     console.log('counter:', counter);
     turn = true;
-    console.log(turn);
+    console.log('turn:', turn);
   }, delay);
 }
 
 function computerMove() {
 
-  playerMoves = [];
+  if (gameStart) {
+    playerMoves = [];
 
-  let offset = 0;
-  turn = false;
-  console.log(turn);
+    let offset = 0;
+    turn = false;
+    console.log('turn:', turn);
 
-  computerMoves.forEach(function(e) {
+    computerMoves.forEach(function(e) {
+      setTimeout(function() {
+        buttonFunc(buttonsObj[e].button, buttonsObj[e].sound, buttonsObj[e].active);
+      }, delay + offset);
+      offset += delay;
+    });
+
     setTimeout(function() {
-      buttonFunc(buttonsObj[e].button, buttonsObj[e].sound, buttonsObj[e].active);
-    }, delay + offset);
-    offset += delay;
-  });
+      computerRandom();
+    }, offset);
 
-  setTimeout(function() {
-    computerRandom();
-  }, offset);
+  }
 
 }
 
-// TODO: computer is responding to every player click. Need to fix.
 function playerMove(id) {
 
   playerMoves.push(id);
   console.log('player moves:', playerMoves);
 
-  setTimeout(function(){
-    computerMove();
-  }, delay);
+}
 
+function failMsg() {
+  display.innerHTML = '!!';
+  playSound(buttonsObj[0].sound);
+  playSound(buttonsObj[1].sound);
+  playSound(buttonsObj[2].sound);
+  playSound(buttonsObj[3].sound);
+
+  setTimeout(function() {
+    softReset();
+  }, delay);
 }
 
 function arraysEqual(a, b) {
   for (var i = 0; i < a.length; i++) {
     if (a[i] !== b[i]) {
-      console.log("FAIL");
+      failMsg();
+      gameStart = false;
     }
   }
 }
@@ -153,7 +171,7 @@ function arraysEqual(a, b) {
 startBtn.addEventListener('click', () => {
   if (gameOn === true && gameStart === false) {
     gameStart = true;
-    console.log('Start game:', gameStart);
+    console.log('gameStart:', gameStart);
     computerRandom();
   }
 });
@@ -185,9 +203,20 @@ strictBtn.addEventListener('click', () => {
   });
 }());
 
+function softReset() {
+  gameStart = false;
+  turn = false;
+  counter = 0;
+  display.innerHTML = '--';
+  playerMoves = [];
+  computerMoves = [];
+  console.clear();
+}
+
 function resetGame() {
   gameOn = false;
   gameStart = false;
+  turn = false;
   counter = 0;
   display.innerHTML = '--';
   strictLED.classList.remove('strict-led-on');
