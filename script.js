@@ -75,11 +75,12 @@ function simonGame(e) {
 
       playerMove(buttonID);
 
-      if (playerMoves.length === computerMoves.length && gameStart !== false) {
+      if (playerMoves.length === computerMoves.length && gameStart === true) {
 
         setTimeout(function() {
           computerMove();
         }, delay);
+
       }
     }
 
@@ -147,23 +148,47 @@ function playerMove(id) {
 
 }
 
-function failMsg() {
-  display.innerHTML = '!!';
-  playSound(buttonsObj[0].sound);
-  playSound(buttonsObj[1].sound);
-  playSound(buttonsObj[2].sound);
-  playSound(buttonsObj[3].sound);
+function fail() {
+  console.log('fail');
+  gameStart = false;
+  if (strict) {
+    display.innerHTML = '!!';
+    playSound(buttonsObj[0].sound);
+    playSound(buttonsObj[1].sound);
+    playSound(buttonsObj[2].sound);
+    playSound(buttonsObj[3].sound);
 
-  setTimeout(function() {
-    softReset();
-  }, delay);
+    setTimeout(function() {
+      softReset();
+    }, delay);
+  } else {
+
+    display.innerHTML = '!';
+    let offset = 0;
+    turn = false;
+    playerMoves = [];
+
+    setTimeout(function() {
+      computerMoves.forEach(function(e) {
+        setTimeout(function() {
+          buttonFunc(buttonsObj[e].button, buttonsObj[e].sound, buttonsObj[e].active);
+        }, delay + offset);
+        offset += delay;
+      });
+    }, delay);
+
+    setTimeout(function(){
+      display.innerHTML = counter;
+      turn = true;
+      gameStart = true;
+    }, delay);
+  }
 }
 
 function arraysEqual(a, b) {
   for (var i = 0; i < a.length; i++) {
     if (a[i] !== b[i]) {
-      failMsg();
-      gameStart = false;
+      fail();
     }
   }
 }
@@ -204,13 +229,15 @@ strictBtn.addEventListener('click', () => {
 }());
 
 function softReset() {
-  gameStart = false;
-  turn = false;
-  counter = 0;
-  display.innerHTML = '--';
-  playerMoves = [];
-  computerMoves = [];
-  console.clear();
+
+    gameStart = false;
+    turn = false;
+    counter = 0;
+    display.innerHTML = '--';
+    playerMoves = [];
+    computerMoves = [];
+    console.clear();
+
 }
 
 function resetGame() {
