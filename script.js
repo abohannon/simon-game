@@ -1,10 +1,8 @@
 const gameButtons = document.querySelectorAll('.push');
-
 const startBtn = document.querySelector('#start');
 const strictBtn = document.querySelector('#strict');
 const strictLED = document.querySelector('.strict-led');
 const display = document.querySelector('#counter');
-
 const buttonsObj = [{
     button: document.querySelector('#green'),
     sound: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3'),
@@ -35,6 +33,7 @@ let gameOn = false;
 let gameStart = false;
 let strict = false;
 let counter = 0;
+let playerCounter = 0;
 let playerMoves = [];
 let computerMoves = [];
 let delay = 1000;
@@ -76,11 +75,15 @@ function simonGame(e) {
       playerMove(buttonID);
 
       if (playerMoves.length === computerMoves.length && gameStart === true) {
-
-        setTimeout(function() {
-          computerMove();
-        }, delay);
-
+        playerCounter++;
+        console.log('player counter:', playerCounter);
+        if (playerCounter !== 20) {
+          setTimeout(function() {
+            computerMove();
+          }, delay);
+        } else {
+          winnerMsg();
+        }
       }
     }
 
@@ -88,7 +91,6 @@ function simonGame(e) {
     arraysEqual(playerMoves, computerMoves);
 
   }
-
 }
 
 function playSound(e) {
@@ -110,8 +112,10 @@ function computerRandom() {
     buttonFunc(buttonsObj[rand].button, buttonsObj[rand].sound, buttonsObj[rand].active);
     computerMoves.push(buttonsObj[rand].idx);
     console.log('computer moves:', computerMoves);
-    updateCount();
-    console.log('counter:', counter);
+    if (counter === 0) {
+      updateCount();
+      console.log('counter:', counter);
+    }
     turn = true;
     console.log('turn:', turn);
   }, delay);
@@ -125,6 +129,10 @@ function computerMove() {
     let offset = 0;
     turn = false;
     console.log('turn:', turn);
+    if (counter > 0) {
+      updateCount();
+      console.log('counter:', counter);
+    }
 
     computerMoves.forEach(function(e) {
       setTimeout(function() {
@@ -138,7 +146,6 @@ function computerMove() {
     }, offset);
 
   }
-
 }
 
 function playerMove(id) {
@@ -177,7 +184,7 @@ function fail() {
       });
     }, delay);
 
-    setTimeout(function(){
+    setTimeout(function() {
       display.innerHTML = counter;
       turn = true;
       gameStart = true;
@@ -228,15 +235,32 @@ strictBtn.addEventListener('click', () => {
   });
 }());
 
+let winnerMsgArr = ['WI', 'IN', 'NN', 'NE', 'ER', 'R!', '!!', '!#', '#$', '$@', '!&', '!!'];
+
+function winnerMsg() {
+
+  let offset = 0;
+
+  setTimeout(function() {
+    winnerMsgArr.forEach(function(e) {
+      setTimeout(function() {
+        display.innerHTML = e;
+      }, 500 + offset);
+      offset += 500;
+    });
+  }, 500);
+}
+
 function softReset() {
 
-    gameStart = false;
-    turn = false;
-    counter = 0;
-    display.innerHTML = '--';
-    playerMoves = [];
-    computerMoves = [];
-    console.clear();
+  gameStart = false;
+  turn = false;
+  counter = 0;
+  playerCounter = 0;
+  display.innerHTML = '--';
+  playerMoves = [];
+  computerMoves = [];
+  console.clear();
 
 }
 
@@ -245,6 +269,7 @@ function resetGame() {
   gameStart = false;
   turn = false;
   counter = 0;
+  playerCounter = 0;
   display.innerHTML = '--';
   strictLED.classList.remove('strict-led-on');
   strict = false;
