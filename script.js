@@ -38,19 +38,19 @@ let playerMoves = [];
 let computerMoves = [];
 let delay = 1000;
 let turn = false;
-let isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints >0));
 
-
-const is_touch_device = function() {
+function is_touch_device() {
   return 'ontouchstart' in window  ||      // works on most browsers
           navigator.maxTouchPoints;       // works on IE10/11 and Surface
-};
+}
 
 Array.from(gameButtons).forEach(buttons => {
   if (is_touch_device) {
     buttons.addEventListener('touchstart', simonGame);
+    console.log('mobile device detected');
   } else {
     buttons.addEventListener('click', simonGame);
+    console.log('not a touch screen');
   }
 
 });
@@ -245,8 +245,9 @@ strictBtn.addEventListener('click', () => {
       resetGame();
     }
   }
-  if (is_touch_device()) {
+  if (is_touch_device() === 1) {
     powerBtn.addEventListener('touchstart', powerSwitch);
+    console.log('mobile device detected');
   } else {
     powerBtn.addEventListener('click', powerSwitch);
   }
