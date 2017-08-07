@@ -40,12 +40,19 @@ let delay = 1000;
 let turn = false;
 let isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints >0));
 
+
+const is_touch_device = function() {
+  return 'ontouchstart' in window  ||      // works on most browsers
+          navigator.maxTouchPoints;       // works on IE10/11 and Surface
+};
+
 Array.from(gameButtons).forEach(buttons => {
-  if (isTouch) {
+  if (is_touch_device) {
     buttons.addEventListener('touchstart', simonGame);
   } else {
     buttons.addEventListener('click', simonGame);
   }
+
 });
 
 // General button behavior (sounds, active state, delay)
@@ -238,10 +245,10 @@ strictBtn.addEventListener('click', () => {
       resetGame();
     }
   }
-  if (isTouch) {
+  if (is_touch_device()) {
     powerBtn.addEventListener('touchstart', powerSwitch);
   } else {
-    powerBtn.addEventListener('touchstart', powerSwitch);
+    powerBtn.addEventListener('click', powerSwitch);
   }
 
 }());
