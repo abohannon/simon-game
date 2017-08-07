@@ -39,20 +39,8 @@ let computerMoves = [];
 let delay = 1000;
 let turn = false;
 
-function is_touch_device() {
-  return 'ontouchstart' in window  ||      // works on most browsers
-          navigator.maxTouchPoints;       // works on IE10/11 and Surface
-}
-
 Array.from(gameButtons).forEach(buttons => {
-  if (is_touch_device) {
-    buttons.addEventListener('touchstart', simonGame);
-    console.log('mobile device detected');
-  } else {
     buttons.addEventListener('click', simonGame);
-    console.log('not a touch screen');
-  }
-
 });
 
 // General button behavior (sounds, active state, delay)
@@ -245,13 +233,8 @@ strictBtn.addEventListener('click', () => {
       resetGame();
     }
   }
-  if (is_touch_device() === 1) {
-    powerBtn.addEventListener('touchstart', powerSwitch);
-    console.log('mobile device detected');
-  } else {
     powerBtn.addEventListener('click', powerSwitch);
-  }
-
+  
 }());
 
 let winnerMsgArr = ['WI', 'IN', 'NN', 'NE', 'ER', 'R!', '!!', '!#', '#$', '$@', '!&', '!!'];
