@@ -241,7 +241,7 @@ strictBtn.addEventListener('click', () => {
   if (isTouch) {
     powerBtn.addEventListener('touchstart', powerSwitch);
   } else {
-    powerBtn.addEventListener('click', powerSwitch);
+    powerBtn.addEventListener('touchstart', powerSwitch);
   }
 
 }());
