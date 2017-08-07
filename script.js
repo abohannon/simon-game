@@ -38,9 +38,14 @@ let playerMoves = [];
 let computerMoves = [];
 let delay = 1000;
 let turn = false;
+let isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints >0));
 
 Array.from(gameButtons).forEach(buttons => {
-  buttons.addEventListener('click', simonGame);
+  if (isTouch) {
+    buttons.addEventListener('touchstart', simonGame);
+  } else {
+    buttons.addEventListener('click', simonGame);
+  }
 });
 
 // General button behavior (sounds, active state, delay)
@@ -224,7 +229,7 @@ strictBtn.addEventListener('click', () => {
 (function togglePower() {
   const powerBtn = document.querySelector('#power');
   const counterLED = document.querySelector('#counter');
-  powerBtn.addEventListener('click', function() {
+  function powerSwitch() {
     powerBtn.classList.toggle('switch-btn-on');
     counterLED.classList.toggle('led-on');
     if (powerBtn.classList.contains('switch-btn-on')) {
@@ -232,7 +237,13 @@ strictBtn.addEventListener('click', () => {
     } else {
       resetGame();
     }
-  });
+  }
+  if (isTouch) {
+    powerBtn.addEventListener('touchstart', powerSwitch);
+  } else {
+    powerBtn.addEventListener('click', powerSwitch);
+  }
+
 }());
 
 let winnerMsgArr = ['WI', 'IN', 'NN', 'NE', 'ER', 'R!', '!!', '!#', '#$', '$@', '!&', '!!'];
